@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/products', [HomeController::class, 'index'])->name('home');
+Route::post('/create/product', [ProductController::class, 'createProduct'])->name('create.product');
+Route::post('/update/product', [ProductController::class, 'updateProduct'])->name('update.product');
+Route::get('/search/product', [ProductController::class, 'searchingProduct'])->name('search.product');
+
+Route::get('/get/products', [ProductController::class, 'getAllProducts'])->name('get.products');
+Route::get('{path}',[HomeController::class, 'index'])->where( 'path', '([A-z\/_.\d-]+)?' );

@@ -6,3 +6,19 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~admin-lte/dist/css/adminlte.css';
+@import '~vue-loading-overlay/dist/vue-loading.css';
+
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+
+.custom-login-btn {
+    width: 330px !important;
+}
+
+.custom-nav {
+    background-color: #e2e6ead6 !important;
+}
