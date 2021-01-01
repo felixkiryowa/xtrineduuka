@@ -13,6 +13,7 @@ import VueProgressBar from "vue-progressbar";
 import { Form, HasError, AlertError } from "vform";
 import Swal from "sweetalert2";
 import {VTable,VPagination} from 'vue-easytable';
+import excel from 'vue-excel-export';
 import VueRouter from 'vue-router';
 
 
@@ -42,6 +43,8 @@ Vue.use(VueProgressBar, {
 });
 //TELL VIEW TO USE VUE router
 Vue.use(VueRouter);
+//TELL VUE THAT YOUR USING EXCEL
+Vue.use(excel);
 
 
 //ADDING A DATE FILTER

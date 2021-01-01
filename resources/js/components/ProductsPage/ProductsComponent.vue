@@ -17,9 +17,6 @@
 
           <div class="card-body">
             <div>
-              <button class="btn btn-success float-left" @click="addingExpenseModal">
-                Add Expense <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </button>
               <button
                 class="btn btn-success float-right"
                 @click="creatingNewProduct"
@@ -42,7 +39,7 @@
               </div>
               <br />
               <table
-                class="table table-hover table-striped table-bordered table-condensed"
+                class="table table-hover table-striped table-bordered table-condensed table-sm"
               >
                 <thead>
                   <tr>
@@ -71,7 +68,7 @@
                       </button>
                       |
                       <button
-                        @click="addTransaction(product.id)"
+                        @click="addTransactionNodal(product)"
                         class="btn btn-success"
                       >
                         Add addTransaction
@@ -189,64 +186,7 @@
         </div>
       </div>
     </div>
-    <!--Add Expense -->
-    <div
-      class="modal fade"
-      id="addNewExpenseModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Expense</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form @submit.prevent="createExpense">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="amount">Amount</label>
-                <input
-                  v-model="expense.amount"
-                  type="text"
-                  name="amount"
-                  placeholder="Enter Amount"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('amount') }"
-                />
-                <has-error :form="form" field="item_name"></has-error>
-              </div>
-              <div class="form-group">
-                <textarea
-                  v-model="expense.description"
-                  name="bio"
-                  placeholder="Short bio for user (Optional)"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('description') }"
-                ></textarea>
-                <has-error :form="form" field="decription"></has-error>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">Add</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!--Add Expense -->
+
     <!--Add Transaction -->
     <div
       class="modal fade"
@@ -259,7 +199,9 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Add Transaction For {{ transaction_title }}
+            </h5>
             <button
               type="button"
               class="close"
@@ -272,17 +214,17 @@
           <form @submit.prevent="createTransaction">
             <div class="modal-body">
               <div class="form-group">
-                <label for="amount">Amount</label>
+                <label for="amount">Quantity</label>
                 <input
-                  v-model="transaction.amount"
-                  type="text"
+                  v-model="transaction.quantity"
+                  type="number"
                   name="quantity"
                   min="1"
                   placeholder="Enter Quantity"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('quantity') }"
+                  :class="{ 'is-invalid': transaction.errors.has('quantity') }"
                 />
-                <has-error :form="form" field="quantity"></has-error>
+                <has-error :form="transaction" field="quantity"></has-error>
               </div>
             </div>
             <div class="modal-footer">
@@ -308,6 +250,7 @@ export default {
       isLoading: true,
       products: {},
       search: "",
+      transaction_title: "",
       form: new Form({
         item_name: "",
         quantity_brought: "",
@@ -316,24 +259,46 @@ export default {
         id: "",
       }),
       transaction: new Form({
-        quantity:""
+        quantity: "",
+        id: "",
       }),
-      expense: new Form({
-        amount:"",
-        description:""
-      })
     };
   },
   mounted() {},
   methods: {
-    addingExpenseModal() {
-
-    },
-    createExpense() {
-
+    addTransactionNodal(product) {
+      this.transaction.reset();
+      this.transaction_title = product.item_name.toUpperCase();
+      this.transaction.id = product.id;
+      $("#addNewTransactionModal").modal("show");
     },
     createTransaction() {
-
+      this.transaction
+        .post("/create/transaction")
+        .then((response) => {
+          if (!response.data.success) {
+            Fire.$emit("afterCreatingProduct");
+            this.$Progress.finish();
+            Swal.fire({
+              text: response.data.message,
+              icon: "error",
+            });
+            this.transaction.reset();
+            $("#addNewTransactionModal").modal("hide");
+          } else {
+            Fire.$emit("afterCreatingProduct");
+            this.$Progress.finish();
+            Toast.fire({
+              icon: "success",
+              title: response.data.message,
+            });
+            this.transaction.reset();
+            $("#addNewTransactionModal").modal("hide");
+          }
+        })
+        .catch((error) => {
+          this.$Progress.fail();
+        });
     },
     getResults(page = 1) {
       axios.get("/get/products?page=" + page).then((response) => {
@@ -367,7 +332,6 @@ export default {
     },
     createProduct() {
       this.$Progress.start();
-
       this.form
         .post("/create/product")
         .then((response) => {

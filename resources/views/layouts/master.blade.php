@@ -21,11 +21,20 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                   <!-- Left navbar links -->
                   <ul class="navbar-nav">
-                    <li class="nav-item d-none d-sm-inline-block">
-                      <a href="index3.html" class="nav-link">Products</a>
+                    <li class="nav-item">
+                      <router-link to="/products" class="nav-link">
+                        <b>Products</b>
+                      </router-link>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                      <a href="#" class="nav-link">Transactions</a>
+                    <li class="nav-item">
+                      <router-link to="/transactions" class="nav-link">
+                        <b>Transactions</b>
+                      </router-link>
+                    </li>
+                    <li class="nav-item">
+                      <router-link to="/expenses" class="nav-link">
+                        <b>Expenses</b>
+                      </router-link>
                     </li>
                   </ul>
                   <!-- Right navbar links -->

@@ -29,14 +29,6 @@ class ProductController extends Controller
         if($product) {
             return response()->json(['success' => true, 'message' => 'Successfully Created A Product'], 200);
         }
-        return User::create([
-            'item_name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'photo' => $request->photo,
-            'type' => $request->type,
-            'bio' => $request->bio,
-        ]);
     }
 
     public function updateProduct(Request $request) {

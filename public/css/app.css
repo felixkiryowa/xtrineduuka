@@ -30150,3 +30150,7 @@ readers do not read off random characters that represent icons */
   background-color: #e2e6ead6 !important;
 }
 
+.generate-btn {
+  margin-top: 29px !important;
+}
+
