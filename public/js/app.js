@@ -77823,7 +77823,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                      Add addTransaction\n                      "
+                                "\n                      Sell Item\n                      "
                               ),
                               _c("i", {
                                 staticClass: "fa fa-plus-circle",
@@ -78291,7 +78291,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Item Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Quantity Brought")]),
+        _c("th", [_vm._v("Current Quantity")]),
         _vm._v(" "),
         _c("th", [_vm._v("Buying Price")]),
         _vm._v(" "),
@@ -94321,8 +94321,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/franco/Desktop/Projects/xtrinedduuka/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/franco/Desktop/Projects/xtrinedduuka/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\A240857\Desktop\Projects\xtrineduuka\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\A240857\Desktop\Projects\xtrineduuka\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -45,7 +45,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Item Name</th>
-                    <th>Quantity Brought</th>
+                    <th>Current Quantity</th>
                     <th>Buying Price</th>
                     <th>Selling Price</th>
                     <th>Actions</th>
@@ -71,7 +71,7 @@
                         @click="addTransactionNodal(product)"
                         class="btn btn-success"
                       >
-                        Add addTransaction
+                        Sell Item
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                       </button>
                     </td>

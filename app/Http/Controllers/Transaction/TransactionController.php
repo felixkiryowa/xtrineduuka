@@ -56,13 +56,13 @@ class TransactionController extends Controller
             $request->start_date, $request->end_date
            ])
            ->select('products.item_name', 'products.buying_price', 
-           'products.selling_price', 
+           'products.selling_price', 'transactions.product_id',
            DB::raw('sum(products.buying_price * transactions.quantity_sold) as total_buying_price'), 
            DB::raw('sum(transactions.profit) as total_profits'), 
            DB::raw('sum(transactions.amount) as total_amount_sold'),
            DB::raw('sum(transactions.quantity_sold) as total_quantity_sold'))
            ->leftJoin('products', 'transactions.product_id', '=', 'products.id')
-           ->groupBy('transactions.product_id')
+           ->groupBy('products.id')
            ->get();
 
            echo $transactions;
